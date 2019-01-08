@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/03/2018 00:49:45 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entities.Company" table="company" schema="public" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" not-null="true" />
+        </property>
+        <property name="phone" type="java.lang.Integer">
+            <column name="phone" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" />
+        </property>
+        <property name="cuit" type="int">
+            <column name="cuit" not-null="true" />
+        </property>
+        <property name="registrationdate" type="date">
+            <column name="registrationdate" not-null="true" />
+        </property>
+        <set name="companyschedules" table="companyschedule" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="fk_company" not-null="true" />
+            </key>
+            <one-to-many class="entities.Companyschedule" />
+        </set>
+    </class>
+</hibernate-mapping>

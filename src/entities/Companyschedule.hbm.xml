@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/03/2018 00:49:45 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entities.Companyschedule" table="companyschedule" schema="public" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="company" class="entities.Company" fetch="select">
+            <column name="fk_company" not-null="true" />
+        </many-to-one>
+        <many-to-one name="day" class="entities.Day" fetch="select">
+            <column name="fk_day" not-null="true" />
+        </many-to-one>
+        <many-to-one name="turntype" class="entities.Turntype" fetch="select">
+            <column name="turntype" not-null="true" />
+        </many-to-one>
+        <set name="turns" table="turn" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="fk_companyschedule" not-null="true" />
+            </key>
+            <one-to-many class="entities.Turn" />
+        </set>
+    </class>
+</hibernate-mapping>
