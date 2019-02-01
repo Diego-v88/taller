@@ -7,7 +7,9 @@
 package services;
 
 import dao.DAOException;
+import entities.Day;
 import entities.Guardschedule;
+import entities.Turntype;
 import java.util.List;
 
 /**
@@ -23,4 +25,8 @@ public interface GuardScheduleService {
     public void createGuardScheduleList(List<Guardschedule> schedule) throws DAOException;
     
     public void deleteAll(Integer guardId) throws DAOException;
+    
+    public List<Guardschedule> getGuardSchedulesByDayAndTt(Day dia, Turntype turnt) throws DAOException;
+    
+    public int getGuardAvailability(Day day) throws DAOException;
 }

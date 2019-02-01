@@ -8,6 +8,7 @@ package userInterface;
 import controllers.Facade;
 import dao.DAOException;
 import entities.Company;
+import entities.Day;
 import entities.Guard;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,6 +34,7 @@ public class Main extends javax.swing.JFrame {
     private NewGuardModal newGuardModal = null;
     public static DefaultTableModel guardModel;
     public static DefaultTableModel companyModel;
+    private static DefaultTableModel scheduleModel;
     private TableRowSorter guardSorter;
     private TableRowSorter companySorter;
 
@@ -43,6 +45,7 @@ public class Main extends javax.swing.JFrame {
         try {
             listGuards();
             listCompanies();
+            listScheduling();
         } catch (DAOException ex) {
             JOptionPane.showMessageDialog(null, "Error: No se pudo conectar la base de datos.");
             ex.printStackTrace();
@@ -127,7 +130,7 @@ public class Main extends javax.swing.JFrame {
         Table_Company.setRowSorter(companySorter);
     }
 
-    public void listGuards() throws DAOException {
+    private void listGuards() throws DAOException {
         //Agregamos a lista todas las personas que fueron agregadas
         guardsList = fachada.getGuards();
         //Limpiamos la tabla
@@ -144,7 +147,7 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
-    public void listCompanies() throws DAOException {
+    private void listCompanies() throws DAOException {
         //Agregamos a lista todas las personas que fueron agregadas
         companiesList = fachada.getCompanies();
         //Limpiamos la tabla
@@ -160,6 +163,22 @@ public class Main extends javax.swing.JFrame {
             companyModel.addRow(data);
         }
     }
+    
+    private void listScheduling() throws DAOException {
+        List<Day> days = fachada.getDays();
+        String cab[] = {"DIA", "Companias", "Disponibilidad de guardias"};
+        String dataSet[][] = {};
+        scheduleModel = new DefaultTableModel(dataSet, cab);
+        Table_schedule.setModel(scheduleModel);
+        for (Day day : days) {
+            Object data[] = {day.getName(),
+                fachada.getCompanyAvailability(day)*4,
+                fachada.getGuardAvailability(day)*4};
+            scheduleModel.addRow(data);
+        }
+        
+        Table_schedule.setRowHeight(30);
+    }
 
     public void addNewRow(Object newRow) {
         if (newRow instanceof Guard) {
@@ -173,9 +192,7 @@ public class Main extends javax.swing.JFrame {
                 company.getCuit()};
             companyModel.addRow(data);
         }
-    }
-
-    ;
+    };
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -210,6 +227,15 @@ public class Main extends javax.swing.JFrame {
         BTN_deleteCompany = new javax.swing.JButton();
         BTN_scheduleCompany = new javax.swing.JButton();
         BTN_update_company = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        BTN_turns_update = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Table_schedule = new javax.swing.JTable();
+        jSeparator2 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -496,6 +522,95 @@ public class Main extends javax.swing.JFrame {
 
         TabGeneral.addTab("Gestor de empresas", Panel_company);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton2.setText("Generar turnos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Esquema de disponibilidad horaria");
+
+        BTN_turns_update.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        BTN_turns_update.setText("Actualizar");
+        BTN_turns_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_turns_updateActionPerformed(evt);
+            }
+        });
+
+        Table_schedule.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Table_schedule.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "DIA", "Companias", "Disponibilidad de guardias"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(Table_schedule);
+
+        jButton1.setText("Notificar turnos");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BTN_turns_update, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 822, Short.MAX_VALUE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())
+                    .addComponent(jSeparator2)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(BTN_turns_update))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(jButton2)
+                .addGap(30, 30, 30)
+                .addComponent(jButton1)
+                .addContainerGap(59, Short.MAX_VALUE))
+        );
+
+        TabGeneral.addTab("Gestor de turnos", jPanel1);
+
         javax.swing.GroupLayout PNL_backgroundLayout = new javax.swing.GroupLayout(PNL_background);
         PNL_background.setLayout(PNL_backgroundLayout);
         PNL_backgroundLayout.setHorizontalGroup(
@@ -648,6 +763,19 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BTN_update_guardActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       TurnsGestor newScheduleModal = new TurnsGestor(this, true);
+       newScheduleModal.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void BTN_turns_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_turns_updateActionPerformed
+        try {
+            listScheduling();
+        } catch (DAOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BTN_turns_updateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -692,6 +820,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton BTN_query;
     private javax.swing.JButton BTN_scheduleCompany;
     private javax.swing.JButton BTN_scheduleGuard;
+    private javax.swing.JButton BTN_turns_update;
     private javax.swing.JButton BTN_updateCompany;
     private javax.swing.JButton BTN_updateGuard;
     private javax.swing.JButton BTN_update_company;
@@ -706,7 +835,15 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTabbedPane TabGeneral;
     private javax.swing.JTable Table_Company;
     private javax.swing.JTable Table_Guard;
+    private javax.swing.JTable Table_schedule;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPaneCompanies;
     private javax.swing.JScrollPane jScrollPaneGuards;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     // End of variables declaration//GEN-END:variables
 }

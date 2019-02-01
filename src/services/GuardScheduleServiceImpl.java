@@ -9,7 +9,9 @@ package services;
 import dao.DAOException;
 import dao.GuardScheduleDAO;
 import dao.GuardScheduleDAOImpl;
+import entities.Day;
 import entities.Guardschedule;
+import entities.Turntype;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -75,5 +77,33 @@ public class GuardScheduleServiceImpl implements GuardScheduleService {
             HibernateUtil.rollbackTransaction();
             throw new DAOException("Error en base de datos: no se pudo traer los Schedules", ex);
         }
+    }
+    
+    @Override
+    public List<Guardschedule> getGuardSchedulesByDayAndTt(Day dia, Turntype turnt) throws DAOException{
+        List<Guardschedule> schedules = new ArrayList<>();
+        
+        try {
+            HibernateUtil.beginTransaction();
+            schedules = GuardScheduleDAO.getGuardSchedulesByDayAndTt(dia,turnt);
+            HibernateUtil.commitTransaction();
+        } catch (HibernateException ex) {
+            throw new DAOException("Error en base de datos: no se pudieron traer los Schedules", ex);
+        }
+        
+        return schedules;
+    }
+    
+    @Override
+    public int getGuardAvailability(Day day) throws DAOException{
+        int resultado = 0;
+        try {
+            HibernateUtil.beginTransaction();
+            resultado = GuardScheduleDAO.getGuardAvailability(day);
+            HibernateUtil.commitTransaction();
+        } catch (HibernateException ex) {
+            throw new DAOException("Error en base de datos: no se pudo calcular la disponibilidad horaria", ex);
+        }
+        return resultado;
     }
 }

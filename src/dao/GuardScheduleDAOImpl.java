@@ -1,20 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dao;
 
+import entities.Day;
 import entities.Guardschedule;
+import entities.Turntype;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Query;
 import utils.HibernateUtil;
 
-/**
- *
- * @author argus
- */
+
 public class GuardScheduleDAOImpl extends GenericDAOImpl<Guardschedule, Serializable> implements GuardScheduleDAO {
     
     @Override
@@ -23,7 +18,7 @@ public class GuardScheduleDAOImpl extends GenericDAOImpl<Guardschedule, Serializ
         Query query = HibernateUtil.getSession().createQuery(sql).setParameter("guardId", guardId);
         List<Guardschedule> scheduleList = (List<Guardschedule>) query.list();
         return scheduleList;
-    }   
+    }
     
     @Override
     public void deleteAll(Integer idGuard) {
@@ -35,5 +30,22 @@ public class GuardScheduleDAOImpl extends GenericDAOImpl<Guardschedule, Serializ
                 HibernateUtil.getSession().delete(preference);
             });
         }
+    }
+    
+    @Override
+    public List<Guardschedule> getGuardSchedulesByDayAndTt(Day dia, Turntype turnt) {
+        String sql = "SELECT p FROM Guardschedule p WHERE p.day.id = :dayId AND p.turntype.id = :turntId";
+        Query query = HibernateUtil.getSession().createQuery(sql).setParameter("dayId", dia.getId())
+                .setParameter("turntId", turnt.getId());
+        List<Guardschedule> scheduleList = (List<Guardschedule>) query.list();
+        return scheduleList;
+    }
+    
+    @Override
+    public int getGuardAvailability(Day day) {
+        String sql = "SELECT COUNT(*) FROM Guardschedule p WHERE p.day.id = :dayId";
+        Query query = HibernateUtil.getSession().createQuery(sql).setParameter("dayId", day.getId());
+        long scheduleList = (long) query.uniqueResult();
+        return (int) scheduleList;
     }
 }

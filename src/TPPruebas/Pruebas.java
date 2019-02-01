@@ -5,6 +5,9 @@
  */
 package TPPruebas;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 import utils.CalendarUtil;
 
 /**
@@ -17,8 +20,17 @@ public class Pruebas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        CalendarUtil calendar = new CalendarUtil();
-        calendar.listCalendars();
+        //CalendarUtil calendar = new CalendarUtil();
+        //calendar.listCalendars();
+
+        /*Date fecha = new Date();
+        if (fecha.getDay() != 0) {
+            Calendar fechaTurno = Calendar.getInstance();
+            fechaTurno.setTime(fecha);
+            fechaTurno.add(Calendar.DATE, 7 - fecha.getDay());
+            fecha = fechaTurno.getTime();
+        }
+        System.out.println(fecha.getDay())*/;
     }
     
 }

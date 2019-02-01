@@ -20,7 +20,6 @@ public class SendMail {
     
     private static final String USER_NAME = "tpfinaltaller";  // GMail user name (just the part before "@gmail.com")
     private static final String PASSWORD = "taller123"; // GMail password
-    private static final String RECIPIENT = "arguser@gmail.com";
 
     public void SendMail(Guard guard, List<Turn> turns) {
         Properties props = System.getProperties();

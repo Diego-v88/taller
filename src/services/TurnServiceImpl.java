@@ -1,23 +1,29 @@
 package services;
 
 import dao.DAOException;
+import dao.DayDAO;
+import dao.DayDAOImpl;
 import dao.TurnDAO;
 import dao.TurnDAOImpl;
+import dao.TurntypeDAO;
+import dao.TurntypeDAOImpl;
 import entities.Company;
+import entities.Day;
 import entities.Guard;
 import entities.Turn;
+import entities.Turntype;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import utils.HibernateUtil;
 
-/**
- *
- * @author arguser
- */
 public class TurnServiceImpl implements TurnService {
 
     private final TurnDAO TurnDAO = new TurnDAOImpl();
+    private final TurntypeDAO turntypeDAO = new TurntypeDAOImpl();
+    private final DayDAO dayDAO = new DayDAOImpl();
 
     @Override
     public List<Turn> getTurns() throws DAOException{
@@ -84,5 +90,33 @@ public class TurnServiceImpl implements TurnService {
             throw new DAOException("Error en base de datos: no se pudo eliminar el Turn", ex);
             
         }
+    }
+    
+    @Override
+    public List<Turntype> getTurnsType() throws DAOException{
+        List<Turntype> turns = new ArrayList<>();
+        try {
+            HibernateUtil.beginTransaction();
+            turns = turntypeDAO.findAll(Turntype.class);
+            HibernateUtil.commitTransaction();
+        } catch (HibernateException ex) {
+            Logger.getLogger(TurnServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DAOException("Error en base de datos: no se pudieron traer los TurnType ", ex);
+        }
+        return turns;
+    }
+    
+    @Override
+    public List<Day> getDays() throws DAOException{
+        List<Day> days = new ArrayList<>();
+        try {
+            HibernateUtil.beginTransaction();
+            days = dayDAO.findAll(Day.class);
+            HibernateUtil.commitTransaction();
+        } catch (HibernateException ex) {
+            Logger.getLogger(TurnServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DAOException("Error en base de datos: no se pudieron traer los dias ", ex);
+        }
+        return days;
     }
 }

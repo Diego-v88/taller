@@ -14,14 +14,18 @@ public class Turn  implements java.io.Serializable {
      private Companyschedule companyschedule;
      private Guardschedule guardschedule;
      private Date turndate;
+     private Date fechaAlta;
+     private Date fechaBaja;
 
     public Turn() {
+        fechaAlta = new Date();
     }
 
     public Turn(Companyschedule companyschedule, Guardschedule guardschedule, Date turndate) {
        this.companyschedule = companyschedule;
        this.guardschedule = guardschedule;
        this.turndate = turndate;
+       this.fechaAlta = new Date();
     }
    
     public Integer getId() {
@@ -53,9 +57,22 @@ public class Turn  implements java.io.Serializable {
         this.turndate = turndate;
     }
 
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
 
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
 
+    public Date getFechaBaja() {
+        return fechaBaja;
+    }
 
+    public void setFechaBaja(Date fechaBaja) {
+        this.fechaBaja = fechaBaja;
+    }
+    
 }
 
 

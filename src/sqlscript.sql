@@ -17,6 +17,8 @@ Phone int null,
 Gender boolean not null,
 Email text null,
 Birthdate date not null,
+fechaAlta date not null,
+fechaBaja date null,
 PRIMARY KEY (ID)
 );
 
@@ -28,6 +30,8 @@ Phone int null,
 Registrationdate date not null,-- ALTER TABLE COMPANY ADD COLUMN Registrationdate DATE NOT NULL WITH DEFAULT CURRENT DATE;
 Email temail null,
 CUIT int not null,
+fechaAlta date not null,
+fechaBaja date null,
 PRIMARY KEY (ID)
 );
 
@@ -77,12 +81,12 @@ ID serial not null,
 FK_GuardSchedule int not null,
 FK_CompanySchedule int not null,
 TurnDate date not null,
+fechaAlta date not null,
+fechaBaja date null,
 PRIMARY KEY (ID),
 FOREIGN KEY (FK_GuardSchedule) REFERENCES GuardSchedule(ID) on delete cascade,
 FOREIGN KEY (FK_CompanySchedule) REFERENCES CompanySchedule(ID) on delete cascade
 );
-
-
 
 create table GuardPreference(
 ID serial not null,
@@ -100,4 +104,19 @@ FK_Guard int not null,
 SendDate date not null,
 PRIMARY KEY (ID),
 FOREIGN KEY (FK_Guard) REFERENCES Guard(ID) on delete cascade
+);
+
+create table USERS (
+ID serial not null,
+username varchar not null,
+password varchar not null,
+PRIMARY KEY (ID)
+);
+
+create table UserLog (
+ID serial not null,
+fechaIngreso date not null,
+FK_users int not null,
+PRIMARY KEY (ID),
+FOREIGN KEY (FK_users) REFERENCES USERS(ID) on delete cascade
 );

@@ -1,23 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package userInterface;
 
+import controllers.Facade;
+import dao.DAOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author diego
- */
 public class Login extends javax.swing.JFrame {
-    private int x , y;
-    /**
-     * Creates new form LoginTo
-     */
+
+    private int x, y;
+    private final Facade fachada;
+
     public Login() {
         initComponents();
+        fachada = new Facade();
     }
 
     /**
@@ -170,24 +166,25 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void PN_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PN_loginMouseClicked
-        String userDB = "1";
-        String passDB = "1";
-        
         String user = TF_user.getText();
         String pass = TF_pass.getText();
+
         if (user.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe completar todo los campos", "Alert", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            if (user.equals(userDB) && pass.equals(passDB)) {
-                //SplashScreen loading = new SplashScreen();
-                //loading.setVisible(true);
-                Main main = new Main();
-                main.setVisible(true);
-                this.dispose();   
-            } else {
-                JOptionPane.showMessageDialog(null, "Ingrese un usuario y contraseña válido", "Alert", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                boolean paso = fachada.isUser(user, pass);
+                
+                if (paso) {
+                    Main main = new Main();
+                    main.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ingrese un usuario y contraseña válido", "Alert", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (DAOException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
-   
         }
     }//GEN-LAST:event_PN_loginMouseClicked
 
@@ -196,21 +193,21 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_LB_closeMouseClicked
 
     private void PN_loginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PN_loginMouseEntered
-        PN_login.setBackground(new java.awt.Color(25,25,117));
+        PN_login.setBackground(new java.awt.Color(25, 25, 117));
     }//GEN-LAST:event_PN_loginMouseEntered
 
     private void PN_loginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PN_loginMouseExited
-        PN_login.setBackground(new java.awt.Color(0,0,102));
+        PN_login.setBackground(new java.awt.Color(0, 0, 102));
     }//GEN-LAST:event_PN_loginMouseExited
 
     private void LB_closeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LB_closeMouseEntered
-        LB_close.setBackground(new java.awt.Color(25,25,117));
-        LBL_top.setBackground(new java.awt.Color(25,25,117));
+        LB_close.setBackground(new java.awt.Color(25, 25, 117));
+        LBL_top.setBackground(new java.awt.Color(25, 25, 117));
     }//GEN-LAST:event_LB_closeMouseEntered
 
     private void LB_closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LB_closeMouseExited
-        LB_close.setBackground(new java.awt.Color(0,0,102));
-        LBL_top.setBackground(new java.awt.Color(0,0,102));
+        LB_close.setBackground(new java.awt.Color(0, 0, 102));
+        LBL_top.setBackground(new java.awt.Color(0, 0, 102));
     }//GEN-LAST:event_LB_closeMouseExited
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed

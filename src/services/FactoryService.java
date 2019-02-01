@@ -1,14 +1,5 @@
 package services;
 
-import entities.Guardnotificationtype;
-
-/**
- *
- * Ejemplo: GestorDeGuards gestorDeGuards =
- * GestorFactory.getInstance().getGestorDeGuard()
- *
- *
- */
 public class FactoryService {
 
     private static FactoryService gestorFactory;
@@ -46,5 +37,9 @@ public class FactoryService {
 
     public TurnService getTurnService() {
         return new TurnServiceImpl();
+    }
+    
+    public UsersService getUserService() {
+        return new UsersServiceImpl();
     }
 }

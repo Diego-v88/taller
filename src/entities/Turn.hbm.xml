@@ -17,5 +17,11 @@
         <property name="turndate" type="date">
             <column name="turndate" length="13" not-null="true" />
         </property>
+        <property name="fechaAlta" type="date">
+            <column name="fechaalta" length="13" not-null="true" />
+        </property>
+        <property name="fechaBaja" type="date">
+            <column name="fechabaja" length="13"  />
+        </property>
     </class>
 </hibernate-mapping>

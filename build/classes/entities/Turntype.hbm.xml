@@ -14,7 +14,7 @@
         <property name="timespan" type="string">
             <column name="timespan" not-null="true" />
         </property>
-        <set name="companyschedules" table="companyschedule" inverse="true" lazy="true" fetch="select">
+        <set name="companyschedules" table="companyschedule" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="turntype" not-null="true" />
             </key>

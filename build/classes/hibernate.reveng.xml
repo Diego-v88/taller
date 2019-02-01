@@ -51,4 +51,6 @@ Contributor(s):
   <table-filter match-name="guardschedule"/>
   <table-filter match-name="turn"/>
   <table-filter match-name="day"/>
+  <table-filter match-name="users"/>
+  <table-filter match-name="userlog"/>
 </hibernate-reverse-engineering>

@@ -3,13 +3,19 @@ package controllers;
 import dao.DAOException;
 import entities.Company;
 import entities.Companyschedule;
+import entities.Day;
 import entities.Guard;
 import entities.Guardnotificationtype;
 import entities.Guardschedule;
 import entities.Turn;
+import entities.Turntype;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import services.CompanyScheduleService;
 import services.CompanyService;
 import services.FactoryService;
@@ -18,6 +24,7 @@ import services.NotificationTypeService;
 import services.GuardPreferenceService;
 import services.GuardScheduleService;
 import services.TurnService;
+import services.UsersService;
 
 /**
  *
@@ -35,9 +42,7 @@ public class Facade {
     private GuardScheduleService guardScheduleService = FactoryService.getInstance().getGuardScheduleService();
     private CompanyScheduleService companyScheduleService = FactoryService.getInstance().getCompanyScheduleService();
     private TurnService turnService = FactoryService.getInstance().getTurnService();
-    
-    
-    
+    private UsersService userService = FactoryService.getInstance().getUserService();
 
     //Guards
     public void createGuard(Guard guard) throws DAOException {
@@ -94,6 +99,7 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
+
     //Company
     public List<Company> getCompanies() throws DAOException {
         try {
@@ -139,7 +145,7 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
-    
+
     public void createGuardSchedules(List<Guardschedule> schedules) throws DAOException {
         try {
             guardScheduleService.createGuardScheduleList(schedules);
@@ -147,7 +153,7 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
-    
+
     public void createCompanySchedules(List<Companyschedule> schedules) throws DAOException {
         try {
             companyScheduleService.createCompanyScheduleList(schedules);
@@ -155,7 +161,7 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
-    
+
     public List<Guardschedule> getGuardSchedules(Integer guardId) throws DAOException {
         try {
             List<Guardschedule> guardScheduleList;
@@ -165,7 +171,7 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
-    
+
     public void deleteAllGuardSchedulesByGuard(Integer guardId) throws DAOException {
         try {
             guardScheduleService.deleteAll(guardId);
@@ -173,7 +179,7 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
-    
+
     public List<Companyschedule> getCompanySchedules(Integer companyId) throws DAOException {
         try {
             List<Companyschedule> companyScheduleList;
@@ -183,7 +189,7 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
-    
+
     public void deleteAllCompanySchedulesByCompany(Integer companyId) throws DAOException {
         try {
             companyScheduleService.deleteAll(companyId);
@@ -191,7 +197,7 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
-    
+
     public List<Turn> getTurns() throws DAOException {
         try {
             List<Turn> turns;
@@ -201,14 +207,100 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
-    
+
     public List<Turn> getTurnsByGuard(Guard guard) throws DAOException {
         try {
-            List<Turn> turns = new ArrayList<Turn>();
+            List<Turn> turns = new ArrayList<>();
             turns = turnService.getTurnsByGuard(guard);
             return turns;
         } catch (DAOException ex) {
             throw new DAOException(null, ex);
         }
+    }
+
+    public List<Turntype> getTurnstype() throws DAOException {
+        List<Turntype> turnstype;
+        try {
+            turnstype = turnService.getTurnsType();
+        } catch (DAOException ex) {
+            throw new DAOException(null, ex);
+        }
+        return turnstype;
+    }
+    
+    public boolean isUser(String username, String password) throws DAOException {
+        boolean estado = false;
+        try {
+            estado = userService.verifyUser(username, password);
+        } catch (DAOException ex) {
+            throw new DAOException(null, ex);
+        }
+        return estado;
+    }
+
+    public List<Turn> generateTurns(Date fecha) throws DAOException {
+        List<Turn> turns = new ArrayList<>();
+        List<Day> dias = turnService.getDays();
+        List<Turntype> tiposTurnos = turnService.getTurnsType();
+        List<List> guardiasTiempo;
+
+        for (Day dia : dias) {
+            for (Turntype tiposTurno : tiposTurnos) {
+                List<Companyschedule> compDT = companyScheduleService.getCompanySchedulesByDayAndTt(dia, tiposTurno);
+                List<Guardschedule> guarDT = guardScheduleService.getGuardSchedulesByDayAndTt(dia, tiposTurno);
+                if (compDT.size() > guarDT.size()) {
+                    return null;
+                } else {
+                    for (Companyschedule coso : compDT) {
+                        Random rand = new Random();
+                        Turn turno = new Turn();
+                        Calendar fechaTurno = Calendar.getInstance();
+                        fechaTurno.setTime(fecha);
+                        fechaTurno.add(Calendar.DATE, dia.getId());
+                        Guardschedule guardia = guarDT.get(rand.nextInt(guarDT.size()));
+                        //if guardia.getGuard() tiene tiempo
+                            turno.setGuardschedule(guardia);
+                            turno.setCompanyschedule(coso);
+                            turno.setTurndate(fechaTurno.getTime());
+                            guarDT.remove(guardia);
+                            turns.add(turno);
+                            //agregar tiempo del guardia
+                        //Sino
+                            //return null;
+                    }
+                }
+            }
+        }
+        return turns;
+    }
+    
+    public int getGuardAvailability(Day day) throws DAOException {
+        int resultado = 0;
+        try {
+            resultado = guardScheduleService.getGuardAvailability(day);
+        } catch (DAOException ex) {
+            throw new DAOException(null, ex);
+        }
+        return resultado;
+    }
+    
+    public int getCompanyAvailability(Day day) throws DAOException {
+        int resultado = 0;
+        try {
+            resultado = companyScheduleService.getCompanyAvailability(day);
+        } catch (DAOException ex) {
+            throw new DAOException(null, ex);
+        }
+        return resultado;
+    }
+    
+    public List<Day> getDays() throws DAOException {
+        List<Day> dias = null;
+        try {
+            dias = turnService.getDays();
+        } catch (DAOException ex) {
+            throw new DAOException(null, ex);
+        }
+        return dias;
     }
 }

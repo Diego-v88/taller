@@ -7,6 +7,8 @@
 package dao;
 
 import entities.Companyschedule;
+import entities.Day;
+import entities.Turntype;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Query;
@@ -35,5 +37,22 @@ public class CompanyScheduleDAOImpl extends GenericDAOImpl<Companyschedule, Seri
                 HibernateUtil.getSession().delete(preference);
             });
         }
+    }
+    
+    @Override
+    public List<Companyschedule> getCompanySchedulesByDayAndTt(Day dia, Turntype turnt) {
+        String sql = "SELECT p FROM Companyschedule p WHERE p.day.id = :dayId AND p.turntype.id = :turntId";
+        Query query = HibernateUtil.getSession().createQuery(sql).setParameter("dayId", dia.getId())
+                .setParameter("turntId", turnt.getId());
+        List<Companyschedule> scheduleList = (List<Companyschedule>) query.list();
+        return scheduleList;
+    }
+    
+    @Override
+    public int getCompanyAvailability(Day day) {
+        String sql = "SELECT COUNT(*) FROM Companyschedule p WHERE p.day.id = :dayId";
+        Query query = HibernateUtil.getSession().createQuery(sql).setParameter("dayId", day.getId());
+        long scheduleList = (long) query.uniqueResult();
+        return (int) scheduleList;
     }
 }
