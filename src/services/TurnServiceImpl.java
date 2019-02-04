@@ -26,7 +26,7 @@ public class TurnServiceImpl implements TurnService {
     private final DayDAO dayDAO = new DayDAOImpl();
 
     @Override
-    public List<Turn> getTurns() throws DAOException{
+    public List<Turn> getTurns() throws DAOException {
         List<Turn> turns = new ArrayList<>();
 
         try {
@@ -40,7 +40,7 @@ public class TurnServiceImpl implements TurnService {
     }
 
     @Override
-    public List<Turn> getTurnsByGuard(Guard guard) throws DAOException{
+    public List<Turn> getTurnsByGuard(Guard guard) throws DAOException {
         List<Turn> turnsByGuard = new ArrayList<>();
 
         try {
@@ -54,7 +54,21 @@ public class TurnServiceImpl implements TurnService {
     }
 
     @Override
-    public List<Turn> getTurnsByCompany(Company company) throws DAOException{
+    public void createTurns(List<Turn> turns) throws DAOException {
+        try {
+            HibernateUtil.beginTransaction();
+            for (Turn turn : turns) {
+                TurnDAO.save(turn);
+            }
+            HibernateUtil.commitTransaction();
+        } catch (HibernateException ex) {
+            HibernateUtil.rollbackTransaction();
+            throw new DAOException("Error en base de datos: no se pudo crear el turno", ex);
+        }
+    }
+
+    @Override
+    public List<Turn> getTurnsByCompany(Company company) throws DAOException {
         List<Turn> turnByCompany = new ArrayList<>();
 
         try {
@@ -68,7 +82,7 @@ public class TurnServiceImpl implements TurnService {
     }
 
     @Override
-    public void createTurn(Turn turn) throws DAOException{
+    public void createTurn(Turn turn) throws DAOException {
         try {
             HibernateUtil.beginTransaction();
             TurnDAO.save(turn);
@@ -80,7 +94,7 @@ public class TurnServiceImpl implements TurnService {
     }
 
     @Override
-    public void deleteTurn(Turn turn) throws DAOException{
+    public void deleteTurn(Turn turn) throws DAOException {
         try {
             HibernateUtil.beginTransaction();
             TurnDAO.delete(turn);
@@ -88,12 +102,12 @@ public class TurnServiceImpl implements TurnService {
         } catch (HibernateException ex) {
             HibernateUtil.rollbackTransaction();
             throw new DAOException("Error en base de datos: no se pudo eliminar el Turn", ex);
-            
+
         }
     }
-    
+
     @Override
-    public List<Turntype> getTurnsType() throws DAOException{
+    public List<Turntype> getTurnsType() throws DAOException {
         List<Turntype> turns = new ArrayList<>();
         try {
             HibernateUtil.beginTransaction();
@@ -105,9 +119,9 @@ public class TurnServiceImpl implements TurnService {
         }
         return turns;
     }
-    
+
     @Override
-    public List<Day> getDays() throws DAOException{
+    public List<Day> getDays() throws DAOException {
         List<Day> days = new ArrayList<>();
         try {
             HibernateUtil.beginTransaction();

@@ -21,4 +21,6 @@ public interface GuardService {
     public Guard getGuardById(Integer id) throws DAOException;
  
     public void deleteGuard(Guard guard) throws DAOException;
+    
+    public List<Guard> getGuardWithTurns() throws DAOException;
 }

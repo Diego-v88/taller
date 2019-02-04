@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import entities.Guardpreference;
@@ -11,10 +6,6 @@ import java.util.List;
 import org.hibernate.Query;
 import utils.HibernateUtil;
 
-/**
- *
- * @author argus
- */
 public class GuardPreferenceDAOImpl extends GenericDAOImpl<Guardpreference, Serializable> implements GuardPreferenceDAO {
 
     @Override

@@ -17,6 +17,9 @@ public class NotificationUtil {
     SendMail mailinator = new SendMail();
     CalendarUtil calendator = new CalendarUtil();
 
+    public NotificationUtil() {
+    }
+    
     public void SendNotifications() {
         try {
             List<Guard> guards = fachada.getGuards();

@@ -14,8 +14,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import services.CompanyScheduleService;
 import services.CompanyService;
 import services.FactoryService;
@@ -26,10 +24,7 @@ import services.GuardScheduleService;
 import services.TurnService;
 import services.UsersService;
 
-/**
- *
- * @author arguser
- */
+
 public class Facade {
 
     public Facade() {
@@ -100,7 +95,15 @@ public class Facade {
         }
     }
 
-    //Company
+    public List<Guard> getGuardWithTurns() throws DAOException {
+        try {
+            List<Guard> guardias = guardService.getGuardWithTurns();
+            return guardias;
+        } catch (DAOException ex) {
+            throw new DAOException(null, ex);
+        }
+    }
+    
     public List<Company> getCompanies() throws DAOException {
         try {
             List<Company> lista;
@@ -217,7 +220,14 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
-
+    
+    public void createTurns(List<Turn> turns) throws DAOException {
+        try {
+            turnService.createTurns(turns);
+        } catch (DAOException ex) {
+            throw new DAOException(null, ex);
+        }
+    }
     public List<Turntype> getTurnstype() throws DAOException {
         List<Turntype> turnstype;
         try {

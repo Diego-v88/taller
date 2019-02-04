@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package userInterface;
 
 import controllers.Facade;
@@ -17,10 +13,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class TurnsGestor extends javax.swing.JFrame {
+public class TurnsGestor extends javax.swing.JDialog {
     Date fechaInicio;
     
     public TurnsGestor(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
         this.fechaInicio = new Date();
@@ -139,7 +136,8 @@ public class TurnsGestor extends javax.swing.JFrame {
                 if (turnos == null) {
                     JOptionPane.showMessageDialog(null, "No se pudo crear los turnos, verifique que existe un disponibilidad horaria suficiente para proseguir");
                 } else {
-                    System.out.println(turnos.size());
+                    fachada.createTurns(turnos);
+                    this.dispose();
                 }
             } catch (DAOException ex) {
                 Logger.getLogger(TurnsGestor.class.getName()).log(Level.SEVERE, null, ex);

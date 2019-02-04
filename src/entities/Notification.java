@@ -5,15 +5,12 @@ import java.util.Date;
 public class Notification implements java.io.Serializable {
 
     private Integer id;
-    private Guard guard;
+    //private Guard guard;
     private Date senddate;
+    private Date nextTurns;
+    private Date fechaBaja;
 
     public Notification() {
-    }
-
-    public Notification(Guard guard, Date senddate) {
-        this.guard = guard;
-        this.senddate = senddate;
     }
 
     public Integer getId() {
@@ -23,15 +20,7 @@ public class Notification implements java.io.Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public Guard getGuard() {
-        return this.guard;
-    }
-
-    public void setGuard(Guard guard) {
-        this.guard = guard;
-    }
-
+    
     public Date getSenddate() {
         return this.senddate;
     }
@@ -40,4 +29,20 @@ public class Notification implements java.io.Serializable {
         this.senddate = senddate;
     }
 
+    public Date getFechaBaja() {
+        return fechaBaja;
+    }
+
+    public void setFechaBaja(Date fechaBaja) {
+        this.fechaBaja = fechaBaja;
+    }
+
+    public Date getNextTurns() {
+        return nextTurns;
+    }
+
+    public void setNextTurns(Date nextTurns) {
+        this.nextTurns = nextTurns;
+    }
+    
 }

@@ -5,9 +5,14 @@
  */
 package TPPruebas;
 
+import controllers.Facade;
+import dao.DAOException;
+import entities.Guard;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utils.CalendarUtil;
 
 /**
@@ -30,7 +35,15 @@ public class Pruebas {
             fechaTurno.add(Calendar.DATE, 7 - fecha.getDay());
             fecha = fechaTurno.getTime();
         }
-        System.out.println(fecha.getDay())*/;
+        System.out.println(fecha.getDay())*/
+        Facade fachada = new Facade();
+        try {
+            
+            System.out.println(fachada.getGuardWithTurns().size());
+        } catch (DAOException ex) {
+            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
 }

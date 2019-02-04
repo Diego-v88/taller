@@ -106,4 +106,5 @@ public class GuardScheduleServiceImpl implements GuardScheduleService {
         }
         return resultado;
     }
+    
 }

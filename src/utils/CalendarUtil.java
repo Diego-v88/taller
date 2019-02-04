@@ -1,16 +1,3 @@
-/*
- * Copyright (c) 2010 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- */
 package utils;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -46,9 +33,6 @@ import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * @author Yaniv Inbar
- */
 public class CalendarUtil {
 
     private static final String APPLICATION_NAME = "Seguridad";
@@ -110,9 +94,9 @@ public class CalendarUtil {
         GoogleAuthorizationCodeFlow flow
                 = new GoogleAuthorizationCodeFlow.Builder(
                         HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(DATA_STORE_FACTORY)
-                .setAccessType("offline")
-                .build();
+                        .setDataStoreFactory(DATA_STORE_FACTORY)
+                        .setAccessType("offline")
+                        .build();
         Credential credential = new AuthorizationCodeInstalledApp(
                 flow, new LocalServerReceiver()).authorize("user");
         System.out.println(
@@ -145,16 +129,16 @@ public class CalendarUtil {
         List<Event> events = Lists.newArrayList();
         turns.forEach(turn -> {
             Event event = new Event().setSummary(turn.getCompanyschedule().getCompany().getName() + ": Turno " + turn.getGuardschedule().getTurntype().getName())
-                .setLocation(turn.getCompanyschedule().getCompany().getAddress())
-                .setDescription("Turno a cubrir por " + turn.getGuardschedule().getGuard().getFirstname() + " "+ turn.getGuardschedule().getGuard().getLastname() + " para " + turn.getCompanyschedule().getCompany().getName());
-                
+                    .setLocation(turn.getCompanyschedule().getCompany().getAddress())
+                    .setDescription("Turno a cubrir por " + turn.getGuardschedule().getGuard().getFirstname() + " " + turn.getGuardschedule().getGuard().getLastname() + " para " + turn.getCompanyschedule().getCompany().getName());
+
             EventAttendee[] attendees = new EventAttendee[]{
-            new EventAttendee().setEmail(turn.getGuardschedule().getGuard().getEmail())};
+                new EventAttendee().setEmail(turn.getGuardschedule().getGuard().getEmail())};
             event.setAttendees(Arrays.asList(attendees));
 
             String startTime = turn.getGuardschedule().getTurntype().getTimespan().substring(0, 5);
             String endTime = turn.getGuardschedule().getTurntype().getTimespan().substring(8, 13);
-            
+
             Calendar cs = Calendar.getInstance();
             Calendar ce = Calendar.getInstance();
             cs.setTimeZone(TimeZone.getDefault());
@@ -163,25 +147,25 @@ public class CalendarUtil {
             cs.setTime(new Date());
             ce.setFirstDayOfWeek(Calendar.MONDAY);
             ce.setTime(new Date());
-            
-            cs.set(Calendar.DAY_OF_WEEK,turn.getGuardschedule().getDay().getId() == 7 ? 1 : turn.getGuardschedule().getDay().getId() + 1);
-            ce.set(Calendar.DAY_OF_WEEK,turn.getGuardschedule().getDay().getId() == 7 ? 1 : turn.getGuardschedule().getDay().getId() + 1);
-            
+
+            cs.set(Calendar.DAY_OF_WEEK, turn.getGuardschedule().getDay().getId() == 7 ? 1 : turn.getGuardschedule().getDay().getId() + 1);
+            ce.set(Calendar.DAY_OF_WEEK, turn.getGuardschedule().getDay().getId() == 7 ? 1 : turn.getGuardschedule().getDay().getId() + 1);
+
             cs.set(Calendar.HOUR_OF_DAY, Integer.valueOf(startTime.substring(0, 2)));
             cs.set(Calendar.MINUTE, Integer.valueOf(startTime.substring(3, 5)));
             EventDateTime edts = new EventDateTime();
-            
+
             edts.setDateTime(new DateTime(cs.getTime()));
-            
+
             ce.set(Calendar.HOUR_OF_DAY, Integer.valueOf(endTime.substring(0, 2)));
             ce.set(Calendar.MINUTE, Integer.valueOf(endTime.substring(3, 5)));
             EventDateTime edte = new EventDateTime();
-            
+
             edte.setDateTime(new DateTime(ce.getTime()));
-            
+
             event.setStart(edts);
             event.setEnd(edte);
-            
+
             events.add(event);
         });
         try {
@@ -195,13 +179,13 @@ public class CalendarUtil {
             Logger.getLogger(CalendarUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void listCalendars() {
         try {
             List<Event> events = Lists.newArrayList();
             com.google.api.services.calendar.Calendar service = getCalendarService();
             String calendarId = "primary";
-                System.out.print(service.events().list(calendarId).execute());
+            System.out.print(service.events().list(calendarId).execute());
         } catch (Exception ex) {
             Logger.getLogger(CalendarUtil.class.getName()).log(Level.SEVERE, null, ex);
         }

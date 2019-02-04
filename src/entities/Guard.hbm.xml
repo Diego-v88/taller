@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26/03/2018 00:49:45 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entities.Guard" table="guard" schema="public" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
@@ -38,12 +37,12 @@
             </key>
             <one-to-many class="entities.Guardpreference" />
         </set>
-        <set name="notifications" table="notification" inverse="true" cascade="save-update, delete" lazy="false" fetch="select">
+        <!--<set name="notifications" table="notification" inverse="true" cascade="save-update, delete" lazy="false" fetch="select">
             <key>
                 <column name="fk_guard" not-null="true" />
             </key>
             <one-to-many class="entities.Notification" />
-        </set>
+        </set>-->
         <set name="guardschedules" table="guardschedule" inverse="true" cascade="save-update, delete" lazy="false" fetch="select">
             <key>
                 <column name="fk_guard" not-null="true" />

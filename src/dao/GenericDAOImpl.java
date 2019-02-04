@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package dao;
 
 import java.io.Serializable;
@@ -11,7 +5,6 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
-
 
 public abstract class GenericDAOImpl<T, ID extends Serializable> implements GenericDAO<T, ID> {
 
@@ -53,8 +46,8 @@ public abstract class GenericDAOImpl<T, ID extends Serializable> implements Gene
 
     @Override
     public T findByID(Class type, Integer id) {
-      Session hibernateSession = this.getSession();
-      return (T) hibernateSession.get(type, id);
+        Session hibernateSession = this.getSession();
+        return (T) hibernateSession.get(type, id);
     }
 
     @Override

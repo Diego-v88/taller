@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package dao;
 
 import entities.Companyschedule;
@@ -14,11 +8,8 @@ import java.util.List;
 import org.hibernate.Query;
 import utils.HibernateUtil;
 
-/**
- *
- * @author arguser
- */
 public class CompanyScheduleDAOImpl extends GenericDAOImpl<Companyschedule, Serializable> implements CompanyScheduleDAO {
+
     @Override
     public List<Companyschedule> getCompanySchedules(Integer companyId) throws DAOException {
         String sql = "SELECT p FROM Companyschedule p WHERE p.company.id = :companyId";
@@ -26,7 +17,7 @@ public class CompanyScheduleDAOImpl extends GenericDAOImpl<Companyschedule, Seri
         List<Companyschedule> scheduleList = (List<Companyschedule>) query.list();
         return scheduleList;
     }
-    
+
     @Override
     public void deleteAll(Integer companyId) {
         String sql = "SELECT p FROM Companyschedule p WHERE p.company.id = :companyId";
@@ -38,7 +29,7 @@ public class CompanyScheduleDAOImpl extends GenericDAOImpl<Companyschedule, Seri
             });
         }
     }
-    
+
     @Override
     public List<Companyschedule> getCompanySchedulesByDayAndTt(Day dia, Turntype turnt) {
         String sql = "SELECT p FROM Companyschedule p WHERE p.day.id = :dayId AND p.turntype.id = :turntId";
@@ -47,7 +38,7 @@ public class CompanyScheduleDAOImpl extends GenericDAOImpl<Companyschedule, Seri
         List<Companyschedule> scheduleList = (List<Companyschedule>) query.list();
         return scheduleList;
     }
-    
+
     @Override
     public int getCompanyAvailability(Day day) {
         String sql = "SELECT COUNT(*) FROM Companyschedule p WHERE p.day.id = :dayId";

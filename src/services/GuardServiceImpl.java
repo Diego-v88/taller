@@ -90,4 +90,17 @@ public class GuardServiceImpl implements GuardService {
             throw new DAOException("Error en base de datos: no se pudo eliminar el Guard", ex);
         }
     }
+    
+    @Override
+    public List<Guard> getGuardWithTurns() throws DAOException{
+        List<Guard> guards = null;
+        try {
+            HibernateUtil.beginTransaction();
+            guards = guardDAO.getGuardWithTurns();
+            HibernateUtil.commitTransaction();
+        } catch (HibernateException ex) {
+            throw new DAOException("Error en base de datos: no se pudo traer los guardias solicitados", ex);
+        }
+        return guards;
+    }
 }

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package userInterface;
 
 import controllers.Facade;
@@ -18,10 +14,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
-/**
- *
- * @author diegovc8
- */
 public class NewGuardModal extends javax.swing.JDialog {
 
     /**
@@ -353,7 +345,6 @@ public class NewGuardModal extends javax.swing.JDialog {
             evt.consume();
         }  else if (!TF_DNI.getText().equals("")) {
             BigInteger cantidad = new BigInteger(TF_DNI.getText());
-            System.out.println(cantidad);
             if (BigInteger.valueOf(Integer.MAX_VALUE).compareTo(cantidad) < 0) {
                 evt.consume();
                 JOptionPane.showMessageDialog(null, "El numero debe ser menor a "+Integer.MAX_VALUE);
@@ -367,7 +358,6 @@ public class NewGuardModal extends javax.swing.JDialog {
             evt.consume();
         }  else if (!TF_Phone.getText().equals("")) {
             BigInteger cantidad = new BigInteger(TF_Phone.getText());
-            System.out.println(cantidad);
             if (BigInteger.valueOf(Integer.MAX_VALUE).compareTo(cantidad) < 0) {
                 evt.consume();
                 JOptionPane.showMessageDialog(null, "El numero debe ser menor a "+Integer.MAX_VALUE);
