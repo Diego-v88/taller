@@ -98,13 +98,13 @@ FOREIGN KEY (FK_guardNotificationType) REFERENCES GuardNotificationType(ID),
 FOREIGN KEY (FK_Guard) REFERENCES Guard(ID) on delete cascade
 );
 
-create table Notification (
-ID serial not null,
-FK_Guard int not null,
-SendDate date not null,
-PRIMARY KEY (ID),
-FOREIGN KEY (FK_Guard) REFERENCES Guard(ID) on delete cascade
-);
+-- create table Notification (
+-- ID serial not null,
+-- FK_Guard int not null,
+-- SendDate date not null,
+-- PRIMARY KEY (ID),
+-- FOREIGN KEY (FK_Guard) REFERENCES Guard(ID) on delete cascade
+-- );
 
 create table USERS (
 ID serial not null,

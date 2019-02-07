@@ -1,4 +1,4 @@
-package entities;
+/*package entities;
 
 import java.util.Date;
 
@@ -45,4 +45,4 @@ public class Notification implements java.io.Serializable {
         this.nextTurns = nextTurns;
     }
     
-}
+}*/

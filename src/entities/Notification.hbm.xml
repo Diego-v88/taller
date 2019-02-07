@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<!--<?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
@@ -16,8 +16,8 @@
         <property name="fechaBaja" type="date">
             <column name="fechabaja" length="13" not-null="true" />
         </property>
-        <!--<many-to-one name="guard" class="entities.Guard" fetch="select">
-            <column name="fk_guard" not-null="true" />
-        </many-to-one>-->
+        //<many-to-one name="guard" class="entities.Guard" fetch="select">
+        //    <column name="fk_guard" not-null="true" />
+        //</many-to-one>
     </class>
-</hibernate-mapping>
+</hibernate-mapping>-->

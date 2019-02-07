@@ -16,7 +16,7 @@
     <mapping resource="entities/Company.hbm.xml"/>
     <mapping resource="entities/Day.hbm.xml"/>
     <mapping resource="entities/Guardschedule.hbm.xml"/>
-    <mapping resource="entities/Notification.hbm.xml"/>
+    <!--<mapping resource="entities/Notification.hbm.xml"/>-->
     <mapping resource="entities/Guardnotificationtype.hbm.xml"/>
     <mapping resource="entities/Users.hbm.xml"/>
     <mapping resource="entities/Userlog.hbm.xml"/>

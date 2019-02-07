@@ -7,7 +7,7 @@
   <table-filter match-name="companyschedule"/>
   <table-filter match-name="guard"/>
   <table-filter match-name="guardpreference"/>
-  <table-filter match-name="notification"/>
+  <!--<table-filter match-name="notification"/>-->
   <table-filter match-name="guardnotificationtype"/>
   <table-filter match-name="turntype"/>
   <table-filter match-name="guardschedule"/>
