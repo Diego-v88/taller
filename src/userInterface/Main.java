@@ -782,8 +782,17 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_BTN_turns_updateActionPerformed
 
     private void BTN_notifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_notifActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Esta seguro que desea realizar las notificaciones?", "Notificaciones", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                    == JOptionPane.YES_OPTION) {
         NotificationUtil nUtil = new NotificationUtil();
-        nUtil.SendNotifications();
+            try {
+                nUtil.SendNotifications();
+                JOptionPane.showMessageDialog(null, "Turnos notificados");
+            } catch (DAOException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_BTN_notifActionPerformed
 
     private void BTN_turnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_turnsActionPerformed

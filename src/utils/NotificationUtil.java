@@ -6,7 +6,6 @@ import dao.DAOException;
 import entities.Guard;
 import entities.Guardpreference;
 import entities.Turn;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -21,8 +20,7 @@ public class NotificationUtil {
     public NotificationUtil() {
     }
     
-    public void SendNotifications() {
-        try {
+    public void SendNotifications() throws DAOException {
             List<Guard> guards = fachada.getGuardWithTurns();
             if (guards != null && !guards.isEmpty()) {
                 guards.forEach(guard -> {
@@ -58,9 +56,6 @@ public class NotificationUtil {
 
                 });
             }
-        } catch (DAOException ex) {
-            Logger.getLogger(NotificationUtil.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
 }
