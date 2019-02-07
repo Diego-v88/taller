@@ -95,10 +95,9 @@
                               <Group type="102" attributes="0">
                                   <Component id="LBL_SearchGuard" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                                  <Component id="TF_searchGuard" min="-2" pref="459" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="101" max="32767" attributes="0"/>
+                                  <Component id="TF_searchGuard" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="jScrollPaneGuards" max="32767" attributes="0"/>
+                              <Component id="jScrollPaneGuards" pref="651" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -119,21 +118,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="TF_searchGuard" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                                  <Component id="LBL_SearchGuard" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="BTN_update_guard" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="TF_searchGuard" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                              <Component id="LBL_SearchGuard" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="BTN_update_guard" alignment="3" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jScrollPaneGuards" pref="491" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                                   <Component id="BTN_newGuard" min="-2" pref="50" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="BTN_updateGuard" min="-2" pref="50" max="-2" attributes="0"/>
@@ -143,7 +135,12 @@
                                   <Component id="BTN_deleteGuard" min="-2" pref="50" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="BTN_scheduleGuard" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="166" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jScrollPaneGuards" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -310,10 +307,9 @@
                               <Group type="102" attributes="0">
                                   <Component id="LBL_SearchCompany" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                                  <Component id="TF_searchCompany" min="-2" pref="507" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="59" max="32767" attributes="0"/>
+                                  <Component id="TF_searchCompany" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="jScrollPaneCompanies" max="32767" attributes="0"/>
+                              <Component id="jScrollPaneCompanies" pref="657" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -332,21 +328,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="TF_searchCompany" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                                  <Component id="LBL_SearchCompany" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="BTN_update_company" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="TF_searchCompany" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                              <Component id="LBL_SearchCompany" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="BTN_update_company" alignment="3" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jScrollPaneCompanies" pref="481" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                  <EmptySpace pref="33" max="32767" attributes="0"/>
                                   <Component id="BTN_newCompany" min="-2" pref="50" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="BTN_updateCompany" min="-2" pref="50" max="-2" attributes="0"/>
@@ -356,9 +345,14 @@
                                   <Component id="BTN_deleteCompany" min="-2" pref="50" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="BTN_scheduleCompany" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="150" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jScrollPaneCompanies" min="-2" pref="491" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

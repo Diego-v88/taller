@@ -16,11 +16,17 @@
         <many-to-one name="turntype" class="entities.Turntype" fetch="select">
             <column name="turntype" not-null="true" />
         </many-to-one>
-        <set name="turns" table="turn" inverse="true" lazy="false" fetch="select">
+        <set name="turns" table="turn" inverse="true" lazy="false" fetch="select" where="fechaBaja is null">
             <key>
                 <column name="fk_companyschedule" not-null="true" />
             </key>
             <one-to-many class="entities.Turn" />
         </set>
+        <property name="fechaAlta" type="date">
+            <column name="fechaalta" length="13" not-null="true" />
+        </property>
+        <property name="fechaBaja" type="date">
+            <column name="fechabaja" length="13"  />
+        </property>
     </class>
 </hibernate-mapping>

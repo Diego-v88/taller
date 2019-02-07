@@ -30,7 +30,7 @@ public class TurnsView extends javax.swing.JDialog {
             guards = fachada.getGuardWithTurns();
             listGuards();
         } catch (DAOException ex) {
-            JOptionPane.showMessageDialog(null, "Error: No se pudo conectar la base de datos, intentelo luego.");
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             this.dispose();
             Logger.getLogger(TurnsView.class.getName()).log(Level.SEVERE, null, ex);
         }

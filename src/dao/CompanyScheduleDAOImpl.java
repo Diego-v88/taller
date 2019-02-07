@@ -12,7 +12,7 @@ public class CompanyScheduleDAOImpl extends GenericDAOImpl<Companyschedule, Seri
 
     @Override
     public List<Companyschedule> getCompanySchedules(Integer companyId) throws DAOException {
-        String sql = "SELECT p FROM Companyschedule p WHERE p.company.id = :companyId";
+        String sql = "SELECT p FROM Companyschedule p WHERE p.company.id = :companyId AND p.fechaBaja = null";
         Query query = HibernateUtil.getSession().createQuery(sql).setParameter("companyId", companyId);
         List<Companyschedule> scheduleList = (List<Companyschedule>) query.list();
         return scheduleList;
@@ -32,7 +32,7 @@ public class CompanyScheduleDAOImpl extends GenericDAOImpl<Companyschedule, Seri
 
     @Override
     public List<Companyschedule> getCompanySchedulesByDayAndTt(Day dia, Turntype turnt) {
-        String sql = "SELECT p FROM Companyschedule p WHERE p.day.id = :dayId AND p.turntype.id = :turntId";
+        String sql = "SELECT p FROM Companyschedule p WHERE p.day.id = :dayId AND p.turntype.id = :turntId AND p.fechaBaja = null";
         Query query = HibernateUtil.getSession().createQuery(sql).setParameter("dayId", dia.getId())
                 .setParameter("turntId", turnt.getId());
         List<Companyschedule> scheduleList = (List<Companyschedule>) query.list();
@@ -41,7 +41,7 @@ public class CompanyScheduleDAOImpl extends GenericDAOImpl<Companyschedule, Seri
 
     @Override
     public int getCompanyAvailability(Day day) {
-        String sql = "SELECT COUNT(*) FROM Companyschedule p WHERE p.day.id = :dayId";
+        String sql = "SELECT COUNT(*) FROM Companyschedule p WHERE p.day.id = :dayId AND p.fechaBaja = null";
         Query query = HibernateUtil.getSession().createQuery(sql).setParameter("dayId", day.getId());
         long scheduleList = (long) query.uniqueResult();
         return (int) scheduleList;

@@ -10,6 +10,7 @@ public class Turn implements java.io.Serializable {
     private Date turndate;
     private Date fechaAlta;
     private Date fechaBaja;
+    private Date senddate;
 
     public Turn() {
         fechaAlta = new Date();
@@ -68,6 +69,14 @@ public class Turn implements java.io.Serializable {
 
     public void setFechaBaja(Date fechaBaja) {
         this.fechaBaja = fechaBaja;
+    }
+
+    public Date getSenddate() {
+        return senddate;
+    }
+
+    public void setSenddate(Date senddate) {
+        this.senddate = senddate;
     }
 
 }

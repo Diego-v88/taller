@@ -46,6 +46,7 @@ public class NewSchedule extends javax.swing.JDialog {
                 });
             }
         } catch (DAOException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(NewSchedule.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -93,6 +94,7 @@ public class NewSchedule extends javax.swing.JDialog {
                 });
             }
         } catch (DAOException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(NewSchedule.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -357,8 +359,10 @@ public class NewSchedule extends javax.swing.JDialog {
             } else {
                 if (isUpdate) {
                     try {
-                        fachada.deleteAllGuardSchedulesByGuard(guardData.getId());
+                        //fachada.deleteAllGuardSchedulesByGuard(guardData.getId());
+                        fachada.bajaAllGuardScheduleByGuard(guardData.getId());
                     } catch (DAOException ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
                         Logger.getLogger(NewSchedule.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
@@ -378,14 +382,17 @@ public class NewSchedule extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(null, "Los horarios para el guardia " + guardData.getFirstname() + " han sido guardado con exito", "Nuevo horario de guardia", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
                 } catch (DAOException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                     Logger.getLogger(NewSchedule.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } else if (entity.getClass() == Company.class) {
             if (isUpdate) {
                 try {
-                    fachada.deleteAllCompanySchedulesByCompany(companyData.getId());
+                    //fachada.deleteAllCompanySchedulesByCompany(companyData.getId());
+                    fachada.bajaAllCompanyScheduleByGuard(companyData.getId());
                 } catch (DAOException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                     Logger.getLogger(NewSchedule.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -405,6 +412,7 @@ public class NewSchedule extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Los horarios para la empresa " + companyData.getName() + " han sido guardado con exito", "Nuevo horario de compania", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (DAOException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
                 Logger.getLogger(NewSchedule.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {

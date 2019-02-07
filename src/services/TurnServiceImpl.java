@@ -13,6 +13,7 @@ import entities.Guard;
 import entities.Turn;
 import entities.Turntype;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,6 +67,21 @@ public class TurnServiceImpl implements TurnService {
             throw new DAOException("Error en base de datos: no se pudo crear el turno", ex);
         }
     }
+    
+    @Override
+    public void sendDateTurns(List<Turn> turns) throws DAOException {
+        try {
+            HibernateUtil.beginTransaction();
+            for (Turn turn : turns) {
+                Turn turno = TurnDAO.findByID(Turn.class, turn.getId());
+                turno.setSenddate(new Date());
+            }
+            HibernateUtil.commitTransaction();
+        } catch (HibernateException ex) {
+            HibernateUtil.rollbackTransaction();
+            throw new DAOException("Error en base de datos: no se pudo crear el turno", ex);
+        }
+    }
 
     @Override
     public List<Turn> getTurnsByCompany(Company company) throws DAOException {
@@ -86,6 +102,22 @@ public class TurnServiceImpl implements TurnService {
         try {
             HibernateUtil.beginTransaction();
             TurnDAO.save(turn);
+            HibernateUtil.commitTransaction();
+        } catch (HibernateException ex) {
+            HibernateUtil.rollbackTransaction();
+            throw new DAOException("Error en base de datos: no se pudo guardar un nuevo Turn", ex);
+        }
+    }
+    
+    @Override
+    public void bajaAllTurns() throws DAOException {
+        try {
+            HibernateUtil.beginTransaction();
+            List<Turn> turns = new ArrayList<>();
+            turns = TurnDAO.getAllTurns();
+            for (Turn turn : turns) {
+                turn.setFechaBaja(new Date());
+            }
             HibernateUtil.commitTransaction();
         } catch (HibernateException ex) {
             HibernateUtil.rollbackTransaction();

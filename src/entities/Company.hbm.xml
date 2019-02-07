@@ -25,7 +25,7 @@
         <property name="registrationdate" type="date">
             <column name="registrationdate" not-null="true" />
         </property>
-        <set name="companyschedules" table="companyschedule" inverse="true" lazy="false" fetch="select">
+        <set name="companyschedules" table="companyschedule" inverse="true" lazy="false" fetch="select" where="fechaBaja is null">
             <key>
                 <column name="fk_company" not-null="true" />
             </key>

@@ -183,6 +183,7 @@ public class Login extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Ingrese un usuario y contraseña válido", "Alert", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (DAOException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

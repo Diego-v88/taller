@@ -43,7 +43,7 @@
             </key>
             <one-to-many class="entities.Notification" />
         </set>-->
-        <set name="guardschedules" table="guardschedule" inverse="true" cascade="save-update, delete" lazy="false" fetch="select">
+        <set name="guardschedules" table="guardschedule" inverse="true" cascade="save-update, delete" lazy="false" fetch="select" where="fechaBaja is null">
             <key>
                 <column name="fk_guard" not-null="true" />
             </key>

@@ -5,6 +5,7 @@ import entities.Company;
 import entities.Companyschedule;
 import entities.Day;
 import entities.Guard;
+import entities.GuardTime;
 import entities.Guardnotificationtype;
 import entities.Guardschedule;
 import entities.Turn;
@@ -23,7 +24,6 @@ import services.GuardPreferenceService;
 import services.GuardScheduleService;
 import services.TurnService;
 import services.UsersService;
-
 
 public class Facade {
 
@@ -94,11 +94,37 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
+    
+    public void bajaAllGuardScheduleByGuard(Integer idGuard) throws DAOException {
+        try {
+            guardScheduleService.bajaAll(idGuard);
+        } catch (DAOException ex) {
+            throw new DAOException(null, ex);
+        }
+    }
 
     public List<Guard> getGuardWithTurns() throws DAOException {
         try {
             List<Guard> guardias = guardService.getGuardWithTurns();
             return guardias;
+        } catch (DAOException ex) {
+            throw new DAOException(null, ex);
+        }
+    }
+
+    public void sendDateTurns(List<Turn> turns) throws DAOException {
+        try {
+            if (!turns.isEmpty()) {
+                turnService.sendDateTurns(turns);
+            }
+        } catch (DAOException ex) {
+            throw new DAOException(null, ex);
+        }
+    }
+    
+    public void bajaAllTurns() throws DAOException {
+        try {
+            turnService.bajaAllTurns();
         } catch (DAOException ex) {
             throw new DAOException(null, ex);
         }
@@ -182,6 +208,14 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
+    
+    public void bajaAllCompanyScheduleByGuard(Integer idCompany) throws DAOException {
+        try {
+            companyScheduleService.bajaAll(idCompany);
+        } catch (DAOException ex) {
+            throw new DAOException(null, ex);
+        }
+    }
 
     public List<Companyschedule> getCompanySchedules(Integer companyId) throws DAOException {
         try {
@@ -220,7 +254,7 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
-    
+
     public void createTurns(List<Turn> turns) throws DAOException {
         try {
             turnService.createTurns(turns);
@@ -228,6 +262,7 @@ public class Facade {
             throw new DAOException(null, ex);
         }
     }
+
     public List<Turntype> getTurnstype() throws DAOException {
         List<Turntype> turnstype;
         try {
@@ -237,7 +272,7 @@ public class Facade {
         }
         return turnstype;
     }
-    
+
     public boolean isUser(String username, String password) throws DAOException {
         boolean estado = false;
         try {
@@ -252,38 +287,95 @@ public class Facade {
         List<Turn> turns = new ArrayList<>();
         List<Day> dias = turnService.getDays();
         List<Turntype> tiposTurnos = turnService.getTurnsType();
-        List<List> guardiasTiempo;
+        List<GuardTime> horasTotales = new ArrayList<>();
 
         for (Day dia : dias) {
+            List<Guard> guardiasEnElDia = guardScheduleService.getGuardsScheduleDay(dia);
+            List<GuardTime> horasALDia = new ArrayList<>();
+            
+            for (int i = 0; i < guardiasEnElDia.size(); i++) {
+                horasALDia.add(new GuardTime(guardiasEnElDia.get(i), 0));
+            }
+            
             for (Turntype tiposTurno : tiposTurnos) {
                 List<Companyschedule> compDT = companyScheduleService.getCompanySchedulesByDayAndTt(dia, tiposTurno);
                 List<Guardschedule> guarDT = guardScheduleService.getGuardSchedulesByDayAndTt(dia, tiposTurno);
+                List<Guardschedule> delete = new ArrayList<>();
+                for (Guardschedule guardschedule : guarDT) {
+                        int tiempoTotal = getTimeFromList(horasTotales, guardschedule.getGuard());
+                        int tiempoDelDia = getTimeFromList(horasALDia, guardschedule.getGuard());
+                        if (tiempoTotal >= 48 || tiempoDelDia >= 8) {
+                            delete.add(guardschedule);
+                        }
+                    }
+                guarDT.removeAll(delete);
                 if (compDT.size() > guarDT.size()) {
                     return null;
                 } else {
-                    for (Companyschedule coso : compDT) {
+                    for (Companyschedule horario : compDT) {
                         Random rand = new Random();
                         Turn turno = new Turn();
                         Calendar fechaTurno = Calendar.getInstance();
                         fechaTurno.setTime(fecha);
                         fechaTurno.add(Calendar.DATE, dia.getId());
-                        Guardschedule guardia = guarDT.get(rand.nextInt(guarDT.size()));
-                        //if guardia.getGuard() tiene tiempo
-                            turno.setGuardschedule(guardia);
-                            turno.setCompanyschedule(coso);
-                            turno.setTurndate(fechaTurno.getTime());
-                            guarDT.remove(guardia);
-                            turns.add(turno);
-                            //agregar tiempo del guardia
-                        //Sino
-                            //return null;
+                        Guardschedule guardiaSc = guarDT.get(rand.nextInt(guarDT.size()));
+                        guarDT.remove(guardiaSc);
+                        turno.setGuardschedule(guardiaSc);
+                        turno.setCompanyschedule(horario);
+                        turno.setTurndate(fechaTurno.getTime());
+                        guarDT.remove(guardiaSc);
+                        for (GuardTime guardTime : horasALDia) {
+                            if (guardTime.getGuard().getId() == guardiaSc.getGuard().getId() ) {
+                                horasALDia.remove(guardTime);
+                                guardTime.addTime(4);
+                                horasALDia.add(guardTime);
+                                break;
+                            }
+                        }
+                        turns.add(turno);
+                        horasTotales = addToList(horasTotales, guardiaSc.getGuard());
                     }
                 }
             }
         }
+        for (GuardTime horasTotale : horasTotales) {
+            if (horasTotale.getTime() < 20 && horasTotale.getTime() > 0) {
+                return null;
+            }
+        }
+        
         return turns;
     }
-    
+
+    private List<GuardTime> addToList(List<GuardTime> list, Guard guard) {
+        GuardTime guardT = new GuardTime(guard, 4);
+        boolean flag = true;
+        if (!list.isEmpty()) {
+            for (GuardTime itemList : list) {
+                if (itemList.getGuard().getId() == guardT.getGuard().getId()) {
+                    itemList.addTime(guardT.getTime());
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                list.add(guardT);
+            }
+        }
+        return list;
+    }
+
+    private int getTimeFromList(List<GuardTime> list, Guard guard) {
+        int time = 0;
+        for (GuardTime guardTime : list) {
+            if (guardTime.getGuard().getId() == guard.getId()) {
+                time = guardTime.getTime();
+                break;
+            }
+        }
+        return time;
+    }
+
     public int getGuardAvailability(Day day) throws DAOException {
         int resultado = 0;
         try {
@@ -293,7 +385,7 @@ public class Facade {
         }
         return resultado;
     }
-    
+
     public int getCompanyAvailability(Day day) throws DAOException {
         int resultado = 0;
         try {
@@ -303,7 +395,7 @@ public class Facade {
         }
         return resultado;
     }
-    
+
     public List<Day> getDays() throws DAOException {
         List<Day> dias = null;
         try {

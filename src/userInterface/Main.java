@@ -41,8 +41,8 @@ public class Main extends javax.swing.JFrame {
             listCompanies();
             listScheduling();
         } catch (DAOException ex) {
-            JOptionPane.showMessageDialog(null, "Error: No se pudo conectar la base de datos.");
-            ex.printStackTrace();
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         Table_Guard.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -342,9 +342,8 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(Panel_guardLayout.createSequentialGroup()
                         .addComponent(LBL_SearchGuard)
                         .addGap(53, 53, 53)
-                        .addComponent(TF_searchGuard, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 101, Short.MAX_VALUE))
-                    .addComponent(jScrollPaneGuards))
+                        .addComponent(TF_searchGuard))
+                    .addComponent(jScrollPaneGuards, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(Panel_guardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BTN_consultar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -360,18 +359,13 @@ public class Main extends javax.swing.JFrame {
             Panel_guardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_guardLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(Panel_guardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(Panel_guardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(TF_searchGuard, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(LBL_SearchGuard))
+                .addGroup(Panel_guardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TF_searchGuard, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LBL_SearchGuard)
                     .addComponent(BTN_update_guard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Panel_guardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Panel_guardLayout.createSequentialGroup()
-                        .addComponent(jScrollPaneGuards, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(Panel_guardLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                        .addGap(23, 23, 23)
                         .addComponent(BTN_newGuard, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(BTN_updateGuard, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -381,7 +375,11 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(BTN_deleteGuard, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(BTN_scheduleGuard, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(166, Short.MAX_VALUE))
+                    .addGroup(Panel_guardLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPaneGuards)
+                        .addContainerGap())))
         );
 
         TabGeneral.addTab("Gestor de guardias", Panel_guard);
@@ -472,9 +470,8 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(Panel_companyLayout.createSequentialGroup()
                         .addComponent(LBL_SearchCompany)
                         .addGap(53, 53, 53)
-                        .addComponent(TF_searchCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 59, Short.MAX_VALUE))
-                    .addComponent(jScrollPaneCompanies))
+                        .addComponent(TF_searchCompany))
+                    .addComponent(jScrollPaneCompanies, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Panel_companyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(BTN_newCompany, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
@@ -489,18 +486,13 @@ public class Main extends javax.swing.JFrame {
             Panel_companyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_companyLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(Panel_companyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Panel_companyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(TF_searchCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(LBL_SearchCompany))
+                .addGroup(Panel_companyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TF_searchCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LBL_SearchCompany)
                     .addComponent(BTN_update_company, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Panel_companyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Panel_companyLayout.createSequentialGroup()
-                        .addComponent(jScrollPaneCompanies, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(Panel_companyLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addComponent(BTN_newCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(BTN_updateCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -510,7 +502,11 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(BTN_deleteCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(BTN_scheduleCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 150, Short.MAX_VALUE))
+                    .addGroup(Panel_companyLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPaneCompanies, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         TabGeneral.addTab("Gestor de empresas", Panel_company);
@@ -757,7 +753,7 @@ public class Main extends javax.swing.JFrame {
         try {
             listCompanies();
         } catch (DAOException ex) {
-            JOptionPane.showMessageDialog(null, "Error en la base de datos: No se pudo listar las compañias");
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BTN_update_companyActionPerformed
@@ -766,20 +762,21 @@ public class Main extends javax.swing.JFrame {
         try {
             listGuards();
         } catch (DAOException ex) {
-            JOptionPane.showMessageDialog(null, "Error en la base de datos: No se pudo listar los guardias");
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BTN_update_guardActionPerformed
 
     private void BTN_generate_turnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_generate_turnsActionPerformed
-       TurnsGestor newScheduleModal = new TurnsGestor(this, true);
-       newScheduleModal.setVisible(true);
+       TurnsGestor gestor = new TurnsGestor(this, true);
+       gestor.setVisible(true);
     }//GEN-LAST:event_BTN_generate_turnsActionPerformed
 
     private void BTN_turns_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_turns_updateActionPerformed
         try {
             listScheduling();
         } catch (DAOException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BTN_turns_updateActionPerformed

@@ -399,6 +399,7 @@ public class NewGuardModal extends javax.swing.JDialog {
                 try {
                     fachada.deleteAllGuardPreferenceByGuard(updateGuard.getId());
                 } catch (DAOException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                     Logger.getLogger(NewGuardModal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -427,6 +428,7 @@ public class NewGuardModal extends javax.swing.JDialog {
                     guardPreference.setGuard(guard);
                     guard.getGuardpreferences().add(guardPreference);
                 } catch (DAOException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                     Logger.getLogger(NewGuardModal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -439,6 +441,7 @@ public class NewGuardModal extends javax.swing.JDialog {
                     guardPreference.setGuard(guard);
                     guard.getGuardpreferences().add(guardPreference);
                 } catch (DAOException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                     Logger.getLogger(NewGuardModal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -451,6 +454,7 @@ public class NewGuardModal extends javax.swing.JDialog {
                     guardPreference.setGuard(guard);
                     guard.getGuardpreferences().add(guardPreference);
                 } catch (DAOException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                     Logger.getLogger(NewGuardModal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -484,8 +488,7 @@ public class NewGuardModal extends javax.swing.JDialog {
                 this.setEnabled(true);
                 this.dispose();
             } catch (DAOException ex) {
-                JOptionPane.showMessageDialog(null, "Error de base de datos", "Base de datos", JOptionPane.INFORMATION_MESSAGE);
-                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, ex.getMessage());
                 this.setEnabled(true);
                 this.dispose();
             }

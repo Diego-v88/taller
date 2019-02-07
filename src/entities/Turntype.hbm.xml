@@ -13,13 +13,13 @@
         <property name="timespan" type="string">
             <column name="timespan" not-null="true" />
         </property>
-        <set name="companyschedules" table="companyschedule" inverse="true" lazy="false" fetch="select">
+        <set name="companyschedules" table="companyschedule" inverse="true" lazy="false" fetch="select" where="fechaBaja is null">
             <key>
                 <column name="turntype" not-null="true" />
             </key>
             <one-to-many class="entities.Companyschedule" />
         </set>
-        <set name="guardschedules" table="guardschedule" inverse="true" lazy="false" fetch="select">
+        <set name="guardschedules" table="guardschedule" inverse="true" lazy="false" fetch="select" where="fechaBaja is null">
             <key>
                 <column name="turntype" not-null="true" />
             </key>

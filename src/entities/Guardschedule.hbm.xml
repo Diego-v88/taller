@@ -22,5 +22,11 @@
             </key>
             <one-to-many class="entities.Turn" />
         </set>
+        <property name="fechaAlta" type="date">
+            <column name="fechaalta" length="13" not-null="true" />
+        </property>
+        <property name="fechaBaja" type="date">
+            <column name="fechabaja" length="13"  />
+        </property>
     </class>
 </hibernate-mapping>

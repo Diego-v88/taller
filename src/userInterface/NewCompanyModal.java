@@ -339,7 +339,7 @@ public class NewCompanyModal extends javax.swing.JDialog {
                 this.setEnabled(true);
                 this.dispose();
             } catch (DAOException ex) {
-                JOptionPane.showMessageDialog(null, "Error de base de datos", "Alert", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Alert", JOptionPane.INFORMATION_MESSAGE);
                 ex.printStackTrace();
             }
         }

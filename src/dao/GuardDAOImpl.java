@@ -19,7 +19,7 @@ public class GuardDAOImpl extends GenericDAOImpl<Guard, Integer> implements Guar
     @Override
     public List<Guard> getGuardWithTurns() {
         List<Guard> guards = null;
-        String sql = "SELECT p FROM Guard p, Turn t, Guardschedule gs WHERE t.fechaBaja = null AND t.guardschedule.id = gs.id AND gs.guard.id = p.id GROUP BY p.id";
+        String sql = "SELECT p FROM Guard p, Turn t, Guardschedule gs WHERE t.fechaBaja = null AND t.guardschedule.id = gs.id AND gs.guard.id = p.id AND gs.fechaBaja = null GROUP BY p.id";
         Query query = HibernateUtil.getSession().createQuery(sql);
         guards = query.list();
         return guards;

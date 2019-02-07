@@ -22,6 +22,15 @@ public class TurnDAOImpl extends GenericDAOImpl<Turn, Serializable> implements T
     }
 
     @Override
+    public List<Turn> getAllTurns() {
+        List<Turn> turns = new ArrayList<>();
+        String sql = "SELECT p FROM Turn p WHERE p.fechaBaja = null";
+        Query query = HibernateUtil.getSession().createQuery(sql);
+        turns = findMany(query);
+        return turns;
+    }
+    
+    @Override
     public List<Turn> getTurnsByCompany(Company company) {
         int emp = company.getCuit();
         List<Turn> turnsByCompany = new ArrayList<>();

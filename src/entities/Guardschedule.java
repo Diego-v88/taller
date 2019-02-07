@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,28 +10,34 @@ public class Guardschedule implements java.io.Serializable {
     private Day day = new Day();
     private Guard guard;
     private Turntype turntype = new Turntype();
-    private Set turns = new HashSet(0);
+    private Set<Turn> turns = new HashSet(0);
+    private Date fechaAlta;
+    private Date fechaBaja;
 
     public Guardschedule() {
+        this.fechaAlta = new Date();
     }
 
     public Guardschedule(Day day, Guard guard, Turntype turntype) {
         this.day = day;
         this.guard = guard;
         this.turntype = turntype;
+        this.fechaAlta = new Date();
     }
 
     public Guardschedule(Guard guard, Integer turntype, Integer day) {
         this.day.setId(day);
         this.guard = guard;
         this.turntype.setId(turntype);
+        this.fechaAlta = new Date();
     }
 
-    public Guardschedule(Day day, Guard guard, Turntype turntype, Set turns) {
+    public Guardschedule(Day day, Guard guard, Turntype turntype, Set<Turn> turns) {
         this.day = day;
         this.guard = guard;
         this.turntype = turntype;
         this.turns = turns;
+        this.fechaAlta = new Date();
     }
 
     public Integer getId() {
@@ -65,12 +72,28 @@ public class Guardschedule implements java.io.Serializable {
         this.turntype = turntype;
     }
 
-    public Set getTurns() {
+    public Set<Turn> getTurns() {
         return this.turns;
     }
 
-    public void setTurns(Set turns) {
+    public void setTurns(Set<Turn> turns) {
         this.turns = turns;
+    }
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
+    public Date getFechaBaja() {
+        return fechaBaja;
+    }
+
+    public void setFechaBaja(Date fechaBaja) {
+        this.fechaBaja = fechaBaja;
     }
 
 }

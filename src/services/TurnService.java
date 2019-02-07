@@ -27,4 +27,8 @@ public interface TurnService {
     public List<Day> getDays() throws DAOException;
     
     public void createTurns(List<Turn> turns) throws DAOException;
+    
+    public void sendDateTurns(List<Turn> turns) throws DAOException;
+    
+    public void bajaAllTurns() throws DAOException;
 }

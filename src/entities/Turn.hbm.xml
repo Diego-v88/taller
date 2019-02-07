@@ -22,5 +22,8 @@
         <property name="fechaBaja" type="date">
             <column name="fechabaja" length="13"  />
         </property>
+        <property name="senddate" type="date">
+            <column name="senddate" length="13" not-null="false" />
+        </property>
     </class>
 </hibernate-mapping>

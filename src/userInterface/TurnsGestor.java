@@ -132,6 +132,7 @@ public class TurnsGestor extends javax.swing.JDialog {
         if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea crear los turnos?", "Gestor turnos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
                 == JOptionPane.YES_OPTION) {
             try {
+                fachada.bajaAllTurns();
                 List<Turn> turnos = fachada.generateTurns(fechaInicio);
                 if (turnos == null) {
                     JOptionPane.showMessageDialog(null, "No se pudo crear los turnos, verifique que existe un disponibilidad horaria suficiente para proseguir");
@@ -140,8 +141,8 @@ public class TurnsGestor extends javax.swing.JDialog {
                     this.dispose();
                 }
             } catch (DAOException ex) {
-                Logger.getLogger(TurnsGestor.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
+                Logger.getLogger(TurnsGestor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
