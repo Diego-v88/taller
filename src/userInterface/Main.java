@@ -6,6 +6,7 @@ import dao.DAOException;
 import entities.Company;
 import entities.Day;
 import entities.Guard;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -229,6 +230,7 @@ public class Main extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         BTN_notif = new javax.swing.JButton();
         BTN_turns = new javax.swing.JButton();
+        BTN_baja_turns = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -567,6 +569,13 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        BTN_baja_turns.setText("Baja de turnos activos");
+        BTN_baja_turns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_baja_turnsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -574,23 +583,24 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(BTN_turns_update, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 822, Short.MAX_VALUE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addContainerGap())
-                    .addComponent(jSeparator2)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(BTN_generate_turns)
-                        .addGap(189, 189, 189)
-                        .addComponent(BTN_notif)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BTN_turns)
-                        .addGap(107, 107, 107))))
+                            .addComponent(jScrollPane1)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(BTN_generate_turns)
+                                .addGap(110, 110, 110)
+                                .addComponent(BTN_notif)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                                .addComponent(BTN_baja_turns)
+                                .addGap(78, 78, 78)
+                                .addComponent(BTN_turns)))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -609,7 +619,8 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BTN_generate_turns)
                     .addComponent(BTN_notif)
-                    .addComponent(BTN_turns))
+                    .addComponent(BTN_turns)
+                    .addComponent(BTN_baja_turns))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
 
@@ -699,9 +710,13 @@ public class Main extends javax.swing.JFrame {
             Guard guard = fachada.getGuardById(guardId);
             if (JOptionPane.showConfirmDialog(this, "Esta seguro que desea eliminar el Guardia " + guard.getFirstname() + "?", "Eliminar Guardia", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
                     == JOptionPane.YES_OPTION) {
-                fachada.deleteGuard(guard);
-                guardModel.removeRow(selectedRow);
-                BTN_deleteGuard.setEnabled(false);
+                if (fachada.activeTurnsByGuard(guard)) {
+                    JOptionPane.showMessageDialog(null, "Este guardia posee turnos activos");
+                }else{
+                    fachada.deleteGuard(guard);
+                    guardModel.removeRow(selectedRow);
+                    BTN_deleteGuard.setEnabled(false);
+                }
             }
 
         } catch (Exception e) {
@@ -800,6 +815,15 @@ public class Main extends javax.swing.JFrame {
         turnv.setVisible(true);
     }//GEN-LAST:event_BTN_turnsActionPerformed
 
+    private void BTN_baja_turnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_baja_turnsActionPerformed
+        try {
+            fachada.bajaAllActiveTurnsByDate(new Date());
+        } catch (DAOException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BTN_baja_turnsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -836,6 +860,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BTN_baja_turns;
     private javax.swing.JButton BTN_consultar;
     private javax.swing.JButton BTN_deleteCompany;
     private javax.swing.JButton BTN_deleteGuard;

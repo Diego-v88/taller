@@ -1,17 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26/03/2018 00:49:45 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entities.Turn" table="turn" schema="public" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="companyschedule" class="entities.Companyschedule" fetch="select">
+        <many-to-one name="companyschedule" class="entities.Companyschedule" lazy="false" fetch="select">
             <column name="fk_companyschedule" not-null="true" />
         </many-to-one>
-        <many-to-one name="guardschedule" class="entities.Guardschedule" fetch="select">
+        <many-to-one name="guardschedule" class="entities.Guardschedule" lazy="false" fetch="select">
             <column name="fk_guardschedule" not-null="true" />
         </many-to-one>
         <property name="turndate" type="date">
@@ -22,6 +21,9 @@
         </property>
         <property name="fechaBaja" type="date">
             <column name="fechabaja" length="13"  />
+        </property>
+        <property name="senddate" type="date">
+            <column name="senddate" length="13" not-null="false" />
         </property>
     </class>
 </hibernate-mapping>

@@ -17,6 +17,7 @@ public class Company  implements java.io.Serializable {
      private Set companyschedules = new HashSet(0);
 
     public Company() {
+        this.registrationdate = new Date();
     }
 
 	
@@ -24,6 +25,7 @@ public class Company  implements java.io.Serializable {
         this.name = name;
         this.address = address;
         this.cuit = cuit;
+        this.registrationdate = new Date();
     }
     public Company(String name, String address, Integer phone, String email, int cuit, Set companyschedules) {
        this.name = name;
@@ -32,6 +34,7 @@ public class Company  implements java.io.Serializable {
        this.email = email;
        this.cuit = cuit;
        this.companyschedules = companyschedules;
+       this.registrationdate = new Date();
     }
    
     public Integer getId() {

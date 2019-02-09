@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26/03/2018 00:49:45 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entities.Day" table="day" schema="public" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
@@ -11,13 +10,13 @@
         <property name="name" type="string">
             <column name="name" not-null="true" />
         </property>
-        <set name="companyschedules" table="companyschedule" inverse="true" lazy="true" fetch="select">
+        <set name="companyschedules" table="companyschedule" inverse="true" lazy="true" fetch="select" where="fechaBaja is null">
             <key>
                 <column name="fk_day" not-null="true" />
             </key>
             <one-to-many class="entities.Companyschedule" />
         </set>
-        <set name="guardschedules" table="guardschedule" inverse="true" lazy="false" fetch="select">
+        <set name="guardschedules" table="guardschedule" inverse="true" lazy="false" fetch="select" where="fechaBaja is null">
             <key>
                 <column name="fk_day" not-null="true" />
             </key>

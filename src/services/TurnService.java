@@ -7,6 +7,7 @@ import entities.Day;
 import entities.Guard;
 import entities.Turn;
 import entities.Turntype;
+import java.util.Date;
 import java.util.List;
 
 
@@ -31,4 +32,8 @@ public interface TurnService {
     public void sendDateTurns(List<Turn> turns) throws DAOException;
     
     public void bajaAllTurns() throws DAOException;
+    
+    public boolean activeTurnsByGuard(Guard guard) throws DAOException;
+    
+    public void bajaAllActiveTurnsByDate(Date date) throws DAOException;
 }

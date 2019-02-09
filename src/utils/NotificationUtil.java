@@ -35,11 +35,11 @@ public class NotificationUtil {
                                         int notificationType = (int) preference.getGuardnotificationtype().getId();
                                         switch (notificationType) {
                                             case 2:
-                                                //mailinator.SendMail(guard, turns);
+                                                mailinator.SendMail(guard, turns);
                                                 System.out.println("MAIL");
                                                 break;
                                             case 3:
-                                                //calendator.addEvents(guard, turns);
+                                                calendator.addEvents(guard, turns);
                                                 System.out.println("CALENDARIO");
                                                 break;
                                         }

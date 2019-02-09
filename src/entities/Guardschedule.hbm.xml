@@ -7,13 +7,13 @@
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="day" class="entities.Day" fetch="select">
+        <many-to-one name="day" class="entities.Day" lazy="false" fetch="select">
             <column name="fk_day" not-null="true" />
         </many-to-one>
-        <many-to-one name="guard" class="entities.Guard" fetch="select">
+        <many-to-one name="guard" class="entities.Guard" lazy="false" fetch="select">
             <column name="fk_guard" not-null="true" />
         </many-to-one>
-        <many-to-one name="turntype" class="entities.Turntype"  lazy="false" fetch="select">
+        <many-to-one name="turntype" class="entities.Turntype" lazy="false" fetch="select">
             <column name="turntype" not-null="true" />
         </many-to-one>
         <set name="turns" table="turn" inverse="true" lazy="false" fetch="select" where="fechaBaja is null">

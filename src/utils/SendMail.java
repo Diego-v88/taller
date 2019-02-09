@@ -75,7 +75,7 @@ public class SendMail {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress((String) guard.getEmail()));
             message.setSubject("Notificación de Turno");
             message.setContent(body, "text/html");
-            //message.setText(body);
+            message.setText(body);
             Transport transport = session.getTransport("smtp");
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());

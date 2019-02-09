@@ -245,6 +245,24 @@ public class Facade {
         }
     }
 
+    public boolean activeTurnsByGuard(Guard guard) throws DAOException {
+        try {
+            boolean turns;
+            turns = turnService.activeTurnsByGuard(guard);
+            return turns;
+        } catch (DAOException ex) {
+            throw new DAOException(null, ex);
+        }
+    }
+    
+    public void bajaAllActiveTurnsByDate(Date date) throws DAOException {
+        try {
+            turnService.bajaAllActiveTurnsByDate(date);
+        } catch (DAOException ex) {
+            throw new DAOException(null, ex);
+        }
+    }
+    
     public List<Turn> getTurnsByGuard(Guard guard) throws DAOException {
         try {
             List<Turn> turns = new ArrayList<>();

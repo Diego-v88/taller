@@ -7,12 +7,12 @@ import java.util.Set;
 public class Companyschedule implements java.io.Serializable {
 
     private Integer id;
+    private Date fechaAlta;
+    private Date fechaBaja;
     private Company company;
     private Day day = new Day();
     private Turntype turntype = new Turntype();
     private Set<Turn> turns = new HashSet(0);
-    private Date fechaAlta;
-    private Date fechaBaja;
     
     public Companyschedule() {
         this.fechaAlta = new Date();

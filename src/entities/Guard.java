@@ -16,10 +16,10 @@ public class Guard implements java.io.Serializable {
     private Date birthdate;
     private Date registrationdate;
     private Set<Guardpreference> guardpreferences = new HashSet(0);
-    //private Set notifications = new HashSet(0);
     private Set<Guardschedule> guardschedules = new HashSet(0);
 
     public Guard() {
+        this.registrationdate = new Date();
     }
 
     public Guard(int dni, String firstname, String lastname, boolean gender, Date birthdate) {
@@ -28,6 +28,7 @@ public class Guard implements java.io.Serializable {
         this.lastname = lastname;
         this.gender = gender;
         this.birthdate = birthdate;
+        this.registrationdate = new Date();
     }
 
     public Guard(int dni, String firstname, String lastname, Integer phone, boolean gender, String email, Date birthdate, Set guardpreferences, Set guardschedules) {
@@ -40,6 +41,7 @@ public class Guard implements java.io.Serializable {
         this.birthdate = birthdate;
         this.guardpreferences = guardpreferences;
         this.guardschedules = guardschedules;
+        this.registrationdate = new Date();
     }
 
     public Integer getId() {

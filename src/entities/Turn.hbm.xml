@@ -7,10 +7,10 @@
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="companyschedule" class="entities.Companyschedule" fetch="select">
+        <many-to-one name="companyschedule" class="entities.Companyschedule" lazy="false" fetch="select">
             <column name="fk_companyschedule" not-null="true" />
         </many-to-one>
-        <many-to-one name="guardschedule" class="entities.Guardschedule" fetch="select">
+        <many-to-one name="guardschedule" class="entities.Guardschedule" lazy="false" fetch="select">
             <column name="fk_guardschedule" not-null="true" />
         </many-to-one>
         <property name="turndate" type="date">

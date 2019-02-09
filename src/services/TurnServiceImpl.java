@@ -53,6 +53,20 @@ public class TurnServiceImpl implements TurnService {
         }
         return turnsByGuard;
     }
+    
+    @Override
+    public boolean activeTurnsByGuard(Guard guard) throws DAOException {
+        List<Turn> turnsByGuard = new ArrayList<>();
+
+        try {
+            HibernateUtil.beginTransaction();
+            turnsByGuard = TurnDAO.getTurnsByGuard(guard);
+            HibernateUtil.commitTransaction();
+        } catch (HibernateException ex) {
+            throw new DAOException("Error en base de datos: no se pudieron traer los Turnos", ex);
+        }
+        return (turnsByGuard.size() > 0);
+    }
 
     @Override
     public void createTurns(List<Turn> turns) throws DAOException {
@@ -117,6 +131,24 @@ public class TurnServiceImpl implements TurnService {
             turns = TurnDAO.getAllTurns();
             for (Turn turn : turns) {
                 turn.setFechaBaja(new Date());
+            }
+            HibernateUtil.commitTransaction();
+        } catch (HibernateException ex) {
+            HibernateUtil.rollbackTransaction();
+            throw new DAOException("Error en base de datos: no se pudo guardar un nuevo Turn", ex);
+        }
+    }
+    
+    @Override
+    public void bajaAllActiveTurnsByDate(Date date) throws DAOException {
+        try {
+            HibernateUtil.beginTransaction();
+            List<Turn> turns = new ArrayList<>();
+            turns = TurnDAO.getAllTurns();
+            for (Turn turn : turns) {
+                if (turn.getTurndate().before(date)) {
+                    turn.setFechaBaja(new Date());
+                }
             }
             HibernateUtil.commitTransaction();
         } catch (HibernateException ex) {

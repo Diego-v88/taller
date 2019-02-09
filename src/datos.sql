@@ -13,9 +13,9 @@ INSERT INTO GUARDNOTIFICATIONTYPE (id,description) VALUES
 (3,'Calendario');
 
 INSERT INTO TURNTYPE (id,name,timespan) Values 
-(1,'Madrugada', '4'),
-(2,'Mañana', '4'),
-(3,'Medio dia', '4'),
-(4,'Siesta', '4'),
-(5,'tarde', '4'),
-(6,'Noche', '4');
+(1,'Madrugada', '00:00 a 04:00'),
+(2,'Mañana', '04:00 a 08:00'),
+(3,'Medio dia', '08:00 a 12:00'),
+(4,'Siesta', '12:00 a 16:00'),
+(5,'tarde', '16:00 a 20:00'),
+(6,'Noche', '20:00 a 23:59');
